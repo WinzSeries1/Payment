@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment DANA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://i.pinimg.com/originals/77/7d/25/777d25d80554c395e59ec70bc11640a3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+      backdrop-filter: blur(5px);
+    }
+
+    input, label {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      background-color: white;
+      color: black;
+      border: none;
+    }
+
+    button {
+      background-color: #0088cc;
+      border: none;
+      color: white;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>FORM PEMBAYARAN DANA</h2>
+    <p>Nomor DANA: <b>083167999313</b></p>
+    <form id="paymentForm">
+      <label>Nama Anda</label>
+      <input type="text" id="nama" required />
+      
+      <label>Nominal Transfer (Rp)</label>
+      <input type="number" id="nominal" required />
+      
+      <label>Upload Bukti Transfer</label>
+      <input type="file" id="bukti" accept="image/*" required />
+      
+      <button type="submit">Kirim Bukti ke Admin</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value;
+      const nominal = document.getElementById('nominal').value;
+      const bukti = document.getElementById('bukti').files[0];
+
+      if (!bukti) {
+        alert("Silakan upload bukti transfer!");
+        return;
+      }
+
+      const pesan = `Halo Admin, saya sudah transfer via DANA.\n\nNama: ${nama}\nNominal: Rp${nominal}\nSilakan cek bukti transfer yang saya lampirkan.`;
+
+      const url = `https://t.me/WinzSeriez?text=${encodeURIComponent(pesan)}`;
+      window.open(url, '_blank');
+
+      alert("Bukti dan data akan dikirim ke Telegram Admin.");
+    });
+  </script>
+</body>
+</html>
