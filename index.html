@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment DANA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://i.imgur.com/OTKXspb.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 90%;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    }
+    h2, p, label {
+      text-align: center;
+    }
+    input, button {
+      padding: 12px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background-color: #00b4d8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    input[type="file"] {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Form Pembayaran DANA</h2>
+    <p><strong>Nomor DANA:</strong> 083167999313</p>
+    <form id="paymentForm">
+      <label for="jumlah">Nominal Transfer (Rp):</label>
+      <input type="number" id="jumlah" name="jumlah" required>
+
+      <label for="bukti">Upload Bukti Transfer:</label>
+      <input type="file" id="bukti" name="bukti" accept="image/*" required>
+
+      <button type="submit">Kirim</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("paymentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const jumlah = document.getElementById("jumlah").value;
+      const bukti = document.getElementById("bukti").files[0];
+
+      if (!bukti) {
+        alert("Harap upload bukti transfer.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        const imageBase64 = reader.result;
+        const pesan = `Halo, saya sudah transfer ke DANA 083167999313 sebesar Rp ${jumlah}. Berikut bukti transfer saya.`;
+
+        // Buka chat Telegram WinzSeriez
+        const link = `https://t.me/WinzSeriez`;
+        alert("Akan diarahkan ke Telegram.");
+        window.open(link, "_blank");
+      };
+
+      reader.readAsDataURL(bukti);
+    });
+  </script>
+</body>
+</html>
