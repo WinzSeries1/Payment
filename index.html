@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MARKET WINZSERIES</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://files.catbox.moe/bj5nb2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 10000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      border: 6px solid #ccc;
+      border-top: 6px solid #00ff99;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #welcome {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+      z-index: 9999;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: opacity 1s ease;
+    }
+
+    #welcome h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: #00ff99;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .product {
+      background: #ffffff10;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    .product img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
+    .product h3 {
+      margin: 15px 0 5px;
+      font-size: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #00c853;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #00b347;
+    }
+
+    #testimoni {
+      padding: 40px;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .testimonial-container {
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+    }
+
+    .testimonial {
+      display: none;
+      text-align: center;
+      background-color: #111;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    .testimonial.active {
+      display: block;
+      animation: fade 1s ease-in-out;
+    }
+
+    .testimonial p {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .testimonial h4 {
+      margin: 0;
+      font-weight: 600;
+      color: #00ff99;
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    #buyModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #buyModal .modal-content {
+      background: #111;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    #buyModal select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .payment-info {
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 12px;
+      color: #fff;
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: left;
+      border: 1px solid #00ff99;
+      box-shadow: 0 0 15px rgba(0,255,153,0.3);
+    }
+
+    .payment-info h4 {
+      color: #00ff99;
+      margin-bottom: 10px;
+    }
+
+    .payment-info p {
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader"><div class="spinner"></div></div>
+
+<div id="welcome">
+  <h2>SELAMAT DATANG</h2>
+  <p>TERIMA KASIH TELAH MENGUNJUNGI MARKET WINZSERIES.</p>
+</div>
+
+<header>
+  <h1>MARKET WINZSERIES</h1>
+  <p>SOLUSI HOSTING CEPAT DAN TERPERCAYA SE INDONESIA</p>
+</header>
+
+<div class="product-container">
+  <div class="product" data-aos="zoom-in">
+    <img src="https://files.catbox.moe/53mtt7.jpg" alt="Voltra">
+    <h3>SCRIPT VOLTRA</h3>
+    <p>NO UPDATE ( 50.000 )</p>
+    <p>FREE UPDATE 3X ( 100.000 )</p>
+    <p>FULL UPDATE ( 150.000 )</p>
+    <a href="#" class="btn">Pesan Sekarang</a>
+  </div>
+  <div class="product" data-aos="zoom-in">
+    <img src="https://files.catbox.moe/fpd77b.jpg" alt="Eternal">
+    <h3>SCRIPT ETERNAL GALAXY</h3>
+    <p>FREE UPDATE 3X ( 30.000 )</p>
+    <p>FULL UPDATE ( 50.000 )</p>
+    <a href="#" class="btn">Pesan Sekarang</a>
+  </div>
+  <div class="product" data-aos="zoom-in">
+    <img src="https://files.catbox.moe/ah1ry7.jpg" alt="Drae">
+    <h3>SCRIPT DRAEADVEIL</h3>
+    <p>NO UPDATE ( 30.000 )</p>
+    <p>FULL UPDATE ( 45.000 )</p>
+    <p>RESELLER ( 60.000 )</p>
+    <a href="#" class="btn">Pesan Sekarang</a>
+  </div>
+  <div class="product" data-aos="zoom-in">
+    <img src="https://files.catbox.moe/lx6iy1.jpg" alt="Userbot">
+    <h3>USERBOT PREMIUM</h3>
+    <p>USERBOT 1 BULAN ( 5.000 )</p>
+    <p>USERBOT PERMANEN ( 10.000 )</p>
+    <p>SELES USERBOT ( 15.000 )</p>
+    <a href="#" class="btn">Pesan Sekarang</a>
+  </div>
+</div>
+
+<section id="testimoni">
+  <h2 style="text-align: center; color: #00ff99; margin-bottom: 30px;">TESTIMONI PELANGGAN</h2>
+  <div class="testimonial-container" data-aos="fade-up">
+    <div class="testimonial active">
+      <p>"Pelayanan cepat dan sangat membantu. Script-nya juga Bagus dan Keren!"</p>
+      <h4>- ALL BUYER</h4>
+    </div>
+    <div class="testimonial">
+      <p>"Saya puas banget, update-nya juga selalu dikasih. Keren banget!"</p>
+      <h4>- ALL BUYER</h4>
+    </div>
+    <div class="testimonial">
+      <p>"Harga murah tapi kualitas mantap. Recommended seller!"</p>
+      <h4>- ALL BUYER</h4>
+    </div>
+  </div>
+</section>
+
+<div id="buyModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Pesan Produk</h3>
+    <p>PILIH HARGA PRODUK</p>
+    <select id="packageOption"></select>
+    <div class="payment-info" id="paymentDetails">
+      <h4>Metode Pembayaran:</h4>
+      <p><strong>DANA:</strong> 0831 6799 9313</p>
+      <p><strong>Nama:</strong> Nxxx Axxxxx</p>
+      <p>Silakan pilih paket dan klik tombol <strong>PEMBAYARAN</strong>.</p>
+      <p>Setelah transfer, Anda akan langsung diarahkan ke <strong>Telegram Admin</strong> untuk mengirim bukti pembayaran.</p>
+    </div>
+    <button onclick="proceedPayment()" class="btn">PEMBAYARAN</button>
+    <br><br>
+    <button onclick="closeModal()" class="btn" style="background-color: red;">Batal</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("welcome").style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById("welcome").style.display = "none";
+      }, 1000);
+    }, 1500);
+  });
+
+  let currentProduct = "";
+  const modal = document.getElementById('buyModal');
+  const packageSelect = document.getElementById('packageOption');
+  const modalTitle = document.getElementById('modalTitle');
+
+  const productOptions = {
+    'SCRIPT VOLTRA': ['NO UPDATE ( 50.000 )', 'FREE UPDATE 3X ( 100.000 )', 'FULL UPDATE ( 150.000 )'],
+    'SCRIPT ETERNAL GALAXY': ['FREE UPDATE 3X ( 30.000 )', 'FULL UPDATE ( 50.000 )'],
+    'SCRIPT DRAEADVEIL': ['NO UPDATE ( 30.000 )', 'FULL UPDATE ( 45.000 )', 'RESELLER ( 60.000 )'],
+    'USERBOT PREMIUM': ['1 BULAN ( 5.000 )', 'PERMANEN ( 10.000 )', 'SELES ( 15.000 )']
+  };
+
+  function openModal(product) {
+    currentProduct = product;
+    modal.style.display = 'flex';
+    modalTitle.textContent = `Pesan ${product}`;
+    packageSelect.innerHTML = "";
+    productOptions[product].forEach(option => {
+      const opt = document.createElement("option");
+      opt.value = option;
+      opt.textContent = option;
+      packageSelect.appendChild(opt);
+    });
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  function proceedPayment() {
+    const selected = packageSelect.value;
+    const confirmation = confirm(`KAMU AKAN MELAKUKAN PEMBELIAN:\n\nPRODUK: ${currentProduct}\nPAKET: ${selected}\n\nDANA: 0831 6799 9313\nATAS NAMA: Nxxx Axxxxx\n\nᴋʟɪᴋ ᴏᴋ ᴜɴᴛᴜᴋ ʟᴀɴᴊᴜᴛ ᴋᴇ ᴛᴇʟᴇɢʀᴀᴍ ᴀᴅᴍɪɴ ᴅᴀɴ sᴇʀᴛᴀᴋᴀɴ ʙᴜᴋᴛɪ ᴛʀᴀɴsғᴇʀ`);
+    if (confirmation) {
+      const message = `HALO SAYA INGIN PESAN ${currentProduct} DENGAN PAKET ${selected}. SAYA SUDAH TRANSFER KE DANA 083167999313 Nxxx Axxxxx.`;
+      const url = `https://t.me/WinzSeriez?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+      closeModal();
+    }
+  }
+
+  document.querySelectorAll('.product .btn').forEach(btn => {
+    const title = btn.parentElement.querySelector('h3').textContent.toUpperCase();
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(title);
+    });
+  });
+
+  let currentIndex = 0;
+  const testimonials = document.querySelectorAll('.testimonial');
+  setInterval(() => {
+    testimonials[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % testimonials.length;
+    testimonials[currentIndex].classList.add('active');
+  }, 4000);
+</script>
+</body>
+</html>
